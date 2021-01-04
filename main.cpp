@@ -8,6 +8,8 @@ Database g_db;
 
 // Receive a command from the user and run it.
 void run_commands() {
+    bool show_newspapers = false;
+
     while (true) {
         int choice;
         int book_id;
@@ -18,7 +20,7 @@ void run_commands() {
         cout << "1) View Catalog of books" << endl;
         cout << "2) Checkout a book" << endl;
         cout << "3) Return a book" << endl;
-        cout << "4) List of available books" << endl;
+        cout << "4) " << (show_newspapers ? "Disable" : "Enable") << " newspapers in the catalog" << endl;
         cout << "5) Quit" << endl;
         cout << endl;
         cout << "Enter your choice: ";
@@ -40,7 +42,9 @@ void run_commands() {
                 g_db.return_book(book_id);
                 break;
             case 4:
-                cout << "Not yet implemented" << endl;
+                show_newspapers = !show_newspapers;
+                g_db.enable_newspapers(show_newspapers);
+                cout << (show_newspapers ? "Enabled": "Disabled") << " newspapers in the catalog" << endl;
                 break;
             case 5:
                 cout << "Terminating" << endl;
